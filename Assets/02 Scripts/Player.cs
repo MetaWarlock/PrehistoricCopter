@@ -12,17 +12,20 @@ public class Player : MonoBehaviour
     private Vector3 lateralVelocity;
 
     public GameObject propeller; // Объект пропеллера для вращения
-    public float rotationSpeed = 100.0f; // Скорость вращения в градусах в секунду
+    public float rotationSpeed = 100.0f; // Начальная скорость вращения в градусах в секунду
+    private float currentRotationSpeed; // Текущая скорость вращения
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        currentRotationSpeed = 0f; // Начальная скорость вращения равна 0
     }
 
     void Update()
     {
         HandleLateralMovement();
         HandleVerticalMovement();
+        RotatePropeller();
     }
 
     private void HandleVerticalMovement()
@@ -33,60 +36,52 @@ public class Player : MonoBehaviour
             {
                 rb.velocity += Vector3.up * acceleration * Time.deltaTime;
             }
-            RotatePropeller();
+            currentRotationSpeed = rotationSpeed; // Установить скорость вращения на максимум
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
             rb.velocity += Vector3.down * acceleration * Time.deltaTime;
-            RotatePropeller();
+            currentRotationSpeed = rotationSpeed; // Установить скорость вращения на максимум
+        }
+        else
+        {
+            // Плавно уменьшаем скорость вращения до 0
+            currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, 0, 5f * Time.deltaTime);
         }
     }
 
     private void HandleLateralMovement()
     {
+        bool isMoving = false;
+
         if (Input.GetKey(KeyCode.RightArrow))
         {
             lateralVelocity += Vector3.right * lateralAcceleration * Time.deltaTime;
-            RotatePropeller();
+            currentRotationSpeed = rotationSpeed;
+            isMoving = true;
         }
-        else if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             lateralVelocity += Vector3.left * lateralAcceleration * Time.deltaTime;
-            RotatePropeller();
+            currentRotationSpeed = rotationSpeed;
+            isMoving = true;
+        }
+
+        if (!isMoving)
+        {
+            // Плавно уменьшаем скорость вращения до 0
+            currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, 0, 5f * Time.deltaTime);
         }
 
         lateralVelocity = Vector3.ClampMagnitude(lateralVelocity, maxSpeed);
         rb.velocity = new Vector3(lateralVelocity.x, rb.velocity.y, 0);
     }
 
-    void OnCollisionStay(Collision collision)
-    {
-        foreach (ContactPoint contact in collision.contacts)
-        {
-            if (contact.normal.x > 0.5)  // Столкновение с левой стороны
-            {
-                if (lateralVelocity.x < 0) lateralVelocity.x = 0;
-            }
-            else if (contact.normal.x < -0.5)  // Столкновение с правой стороны
-            {
-                if (lateralVelocity.x > 0) lateralVelocity.x = 0;
-            }
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            lateralVelocity = Vector3.zero;
-        }
-    }
-
     void RotatePropeller()
     {
-        if (propeller != null)
+        if (propeller != null && currentRotationSpeed > 0.01f) // Проверка, что скорость не очень маленькая
         {
-            propeller.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime); // Вращение вокруг оси Z
+            propeller.transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime);
         }
     }
 }

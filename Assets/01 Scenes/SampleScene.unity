@@ -889,7 +889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 20
   acceleration: 20
-  lateralAcceleration: 0
+  lateralAcceleration: 10
   propeller: {fileID: 1826785679}
   rotationSpeed: 400
 --- !u!65 &1377812912
