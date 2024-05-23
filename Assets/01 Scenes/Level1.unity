@@ -656,7 +656,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1377812917
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1012,7 +1012,7 @@ PrefabInstance:
     - target: {fileID: -3776128067206536311, guid: 8f53fc275161b1844ae0dedcf48018ce,
         type: 3}
       propertyPath: m_EdgeRadius
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7923687977901198820, guid: 8f53fc275161b1844ae0dedcf48018ce,
         type: 3}
