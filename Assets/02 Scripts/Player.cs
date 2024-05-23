@@ -80,5 +80,5 @@ public class Player : MonoBehaviour
         {
             propeller.transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime);
         }
-    }
+    } 
 }

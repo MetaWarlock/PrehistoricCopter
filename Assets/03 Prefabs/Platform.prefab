@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8634777038407339832}
   - component: {fileID: 8184823258034560024}
   - component: {fileID: 872228436976044112}
-  - component: {fileID: -3776128067206536311}
+  - component: {fileID: 8255139127715256962}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Ground
@@ -27,9 +27,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7923687977901198820}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.3, y: 13, z: 0}
-  m_LocalScale: {x: 0.4, y: 1, z: 1}
+  m_LocalScale: {x: 8, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -86,7 +86,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!61 &-3776128067206536311
+--- !u!61 &8255139127715256962
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
