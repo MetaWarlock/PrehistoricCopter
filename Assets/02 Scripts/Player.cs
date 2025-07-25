@@ -11,14 +11,14 @@ public class Player : MonoBehaviour
     private Rigidbody rb;
     private Vector3 lateralVelocity;
 
-    public GameObject propeller; // Объект пропеллера для вращения
-    public float rotationSpeed = 100.0f; // Начальная скорость вращения в градусах в секунду
-    private float currentRotationSpeed; // Текущая скорость вращения
+    public GameObject propeller; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float rotationSpeed = 100.0f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private float currentRotationSpeed; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        currentRotationSpeed = 0f; // Начальная скорость вращения равна 0
+        currentRotationSpeed = 0f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 0
     }
 
     void Update()
@@ -32,20 +32,20 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            if (rb.velocity.y < maxSpeed)
+            if (rb.linearVelocity.y < maxSpeed)
             {
-                rb.velocity += Vector3.up * acceleration * Time.deltaTime;
+                rb.linearVelocity += Vector3.up * acceleration * Time.deltaTime;
             }
-            currentRotationSpeed = rotationSpeed; // Установить скорость вращения на максимум
+            currentRotationSpeed = rotationSpeed; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
-            rb.velocity += Vector3.down * acceleration * Time.deltaTime;
-            currentRotationSpeed = rotationSpeed; // Установить скорость вращения на максимум
+            rb.linearVelocity += Vector3.down * acceleration * Time.deltaTime;
+            currentRotationSpeed = rotationSpeed; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
         else
         {
-            // Плавно уменьшаем скорость вращения до 0
+            // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 0
             currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, 0, 5f * Time.deltaTime);
         }
     }
@@ -69,17 +69,17 @@ public class Player : MonoBehaviour
 
         if (!isMoving)
         {
-            // Плавно уменьшаем скорость вращения до 0
+            // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 0
             currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, 0, 5f * Time.deltaTime);
         }
 
         lateralVelocity = Vector3.ClampMagnitude(lateralVelocity, maxSpeed);
-        rb.velocity = new Vector3(lateralVelocity.x, rb.velocity.y, 0);
+        rb.linearVelocity = new Vector3(lateralVelocity.x, rb.linearVelocity.y, 0);
     }
 
     void RotatePropeller()
     {
-        if (propeller != null && currentRotationSpeed > 0.01f) // Проверка, что скорость не очень маленькая
+        if (propeller != null && currentRotationSpeed > 0.01f) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
             propeller.transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime);
         }
